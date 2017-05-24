@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<!--задания будут адекватно себя вести здесь http://upscale.promo.net.ua/gavrina/quiz/ajax1.html-->
+    <div class="container">
+        <p>Получить ответ от сервера случайное число от 0 до 10. Изменяется при обновлении страницы.</p>
+        <h1></h1>
+        <p>Задание 1. Передайте на сервер два числа методом POST. Имена чисел – num1 и num2. Цель — файл a1.php. Если все выполнено верно, то будет возвращена строка с суммой чисел, если нет – ошибка. Способ передачи – AJAX.</p>
+        <div class="row">
+            <div class="input-field col l6 s12">
+                <input placeholder="Укажите первое число" id="n1" type="text" class="validate">
+                <label class="active" for="n1">Первое число</label>
+            </div>
+            <div class="input-field col l6 s12">
+                <input placeholder="Укажите второе число" id="n2" type="text" class="validate">
+                <label class="active" for="n2">Второе число</label>
+            </div>
+             <a class="waves-effect waves-light btn" id="summ"><i class="material-icons right">input</i>Суммировать числа</a>
+            <p id="out1"><i>Нажмите на кнопку "Суммировать числа" и здесь будет отображен полученный ответ от сервера.</i></p>
+        </div>
+        <p>Задание 2. Передайте на сервер свой год рождения в формате XXXX. Передачу осуществляйте методом POST, имя переменной year, имя целевого файла – a2.php. Если все выполнено верно, то сервер вернет строку в которой будет количество прожитых лет, если нет – ошибку. Способ передачи – AJAX.</p>
+        <p id="out2"></p>
+        <p>Задание 3. Создайте форму с radiobutton для выбора пола (мужчина или женщина). Добавьте поле для ввода роста (в сантиметрах). По нажатию кнопки “Идеальный вес”, пошлите запрос на файл a3.php. На сервер передается параметр пол – имя параметра sex, значения man или woman и рост ( имя height). Передача осуществляется методом AJAX, с помощью POST.</p>
+        <p>Если все выполнено правильно, то будет возвращена строка с расчетом идеального веса под заданный пол. В противном случае – ошибка.</p>
+        <p>Задание 4. Измените предыдущее значение, чтобы рост задавался с помощью ползунка range.</p>
+            <div class="row">
+                <form action="#">
+                <div class="input-field col s6">
+                    <input placeholder="Укажите свой вес" id="sex" type="text" class="validate">
+                    <label class="active" for="sex">Ваш вес</label>
+                </div>
+                    <div class="input-field col s6">
+                        <p>Отметьте Ваш рост</p>
+                    <p class="range-field">
+                        <input type="range" id="height" min="110" max="250" value="0"/>
+                    </p>
+                    </div>
+                    <a class="waves-effect waves-light btn" id="ideal-kg"><i class="material-icons right">input</i>Рассчитать идеальный вес</a>
+                </form>
+                <p id="out3"><i>Нажмите на кнопку "Рассчитать идеальный вес" и здесь будет отображен полученный ответ от сервера.</i></p>
+            </div>
+        <p>Задание 5. Создайте форму с полями:</p>
+        <p>fio – поле ввода для имени и фамилии;</p>
+        <p> email – поле ввода для email адреса</p>
+        <p>  phone – поле ввода для телефона</p>
+        <p>  По нажатию кнопки передайте данные из полей ввода на сервер (mail.php) посредством POST (AJAX). Имена переменных – такие, как указано в списке. Если все сделано верно, то по адресу указанному в файле mail.php в переменной $to будет отправлено письмо, если нет – выведена ошибка.</p>
+        <p>  Возвращаемый формат – строка.</p>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col l4 s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="fio" type="text" class="validate">
+                        <label class="active" for="fio">Фамилия Имя Отчество</label>
+                    </div>
+                    <div class="input-field col l4 s12">
+                        <i class="material-icons prefix">email</i>
+                        <input id="email" type="email" class="validate">
+                        <label class="active" for="email">E-mail</label>
+                    </div>
+                    <div class="input-field col l4 s12">
+                        <i class="material-icons prefix">phone</i>
+                        <input id="phone" type="tel" class="validate">
+                        <label class="active" for="phone">Телефон</label>
+                    </div>
+                </div>
+            </form>
+
+        <a class="waves-effect waves-light btn" id="submitBtn"><i class="material-icons right">input</i>Отправить данные</a>
+            <p id="out4"><i>Нажмите на кнопку "Отправить данные" и здесь будет отображен полученный ответ от сервера.</i></p>
+        </div>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+
+    $(document).ready(function() {
+        myAjax();
+
+    })
+//    Задание 1. Передайте на сервер два числа методом POST. Имена чисел – num1 и num2. Цель — файл a1.php. Если все выполнено верно, то будет возвращена строка с суммой чисел, если нет – ошибка. Способ передачи – AJAX.
+//
+//        Задание 2. Передайте на сервер свой год рождения в формате XXXX. Передачу осуществляйте методом POST, имя переменной year, имя целевого файла – a2.php. Если все выполнено верно, то сервер вернет строку в которой будет количество прожитых лет, если нет – ошибку. Способ передачи – AJAX.
+//
+//        Задание 3. Создайте форму с radiobutton для выбора пола (мужчина или женщина). Добавьте поле для ввода роста (в сантиметрах). По нажатию кнопки “Идеальный вес”, пошлите запрос на файл a3.php. На сервер передается параметр пол – имя параметра sex, значения man или woman и рост ( имя height). Передача осуществляется методом AJAX, с помощью POST.
+//
+//        Если все выполнено правильно, то будет возвращена строка с расчетом идеального веса под заданный пол. В противном случае – ошибка.
+//
+//        Задание 4. Измените предыдущее значение, чтобы рост задавался с помощью ползунка range.
+//
+//        Задание 5. Создайте форму с полями:
+//
+//        fio – поле ввода для имени и фамилии;
+//    email – поле ввода для email адреса
+//    phone – поле ввода для телефона
+//    По нажатию кнопки передайте данные из полей ввода на сервер (mail.php) посредством POST (AJAX). Имена переменных – такие, как указано в списке. Если все сделано верно, то по адресу указанному в файле mail.php в переменной $to будет отправлено письмо, если нет – выведена ошибка.
+//
+//        Возвращаемый формат – строка.
+//
+    function myAjax() {
+        $.post(
+            //куда, всегда имя файла или адрес, который выделяется для запросов
+            'rand.php',
+            //что
+            {
+                'min' : 0,
+                'max' : 10
+            },
+            //и что потом. должны указать имя функции, которая должна выполниться после получения ответа
+            //запрос и ответ всегда формируются в виде строк.
+            // ответ вегда приходит в переменную, функции указанную ниже.
+            ifSuccess
+        );
+    }
+    function ifSuccess(data) {
+        $('h1').html(data);
+    }
+    $('#summ').on('click', myAjax1);
+    function myAjax1() {
+        $.post(
+            'a1.php',
+           {
+               'num1' : $('#n1').val(),
+               'num2' : $('#n2').val(),
+           },
+            ifSuccess1
+        );
+    }
+    function ifSuccess1(data) {
+        $('#out1').html(data);
+    }
+    myAjax2();
+    function myAjax2() {
+        $.post(
+            'a2.php',
+            {
+                'year' : 1977,
+            },
+            ifSuccess2
+        );
+    }
+    function ifSuccess2(data) {
+        $('#out2').html(data);
+    }
+    $('#ideal-kg').on('click',myAjax3);
+    function myAjax3() {
+        $.post(
+            'a3.php',
+            {
+                'sex' : $('#sex').val(),
+                'height' : $('#height').val(),
+            },
+            ifSuccess3
+        );
+    }
+    function ifSuccess3(data) {
+        $('#out3').html(data);
+    }
+    $('#submitBtn').on('click',myAjax4);
+    function myAjax4() {
+        $.post(
+            'mail.php',
+            {
+                'fio' : $('#fio').val(),
+                'email' : $('#email').val(),
+                'phone' : $('#phone').val(),
+            },
+            ifSuccess4
+        );
+    }
+    function ifSuccess4(data) {
+        $('#out4').html(data);
+    }
+//    $('#tovar').on('click',myAjax5);
+//    function myAjax5() {
+//        $.post(
+//            'mail.php',
+//            {
+//                'fio' : $('#fio').val(),
+//                'email' : $('#email').val(),
+//                'phone' : $('#phone').val(),
+//            },
+//            ifSuccess4
+//        );
+//    }
+//    function ifSuccess5(data) {
+//        $('#out5').html(data);
+//    }
+
+</script>
+</body>
+</html>
